@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  ShortestURL:
+    build: ./
+    command: ./ShortestURL
+    ports:
+      - 8081:8000
+    depends_on:
+      - db
+    environment:
+      - DB_PASSWORD=admin
+
+  db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - ./.database/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5436:5432
